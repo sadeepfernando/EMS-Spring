@@ -1,7 +1,6 @@
 package com.example.EMS_BackEnd.controller;
 
 import com.example.EMS_BackEnd.dto.EmployeeDto;
-import com.example.EMS_BackEnd.entity.Employee;
 import com.example.EMS_BackEnd.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,6 +35,15 @@ public class EmployeeController {
     public ResponseEntity<List<EmployeeDto>> getAllEmployees(){
         List<EmployeeDto> employees = employeeService.getAllEmployees();
         return ResponseEntity.ok(employees);
+
+    }
+
+//    Update Employee Api
+    @PutMapping("{id}")
+    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto updatedEmployee){
+
+        EmployeeDto employeeDto = employeeService.updateEmployee(id , updatedEmployee);
+        return ResponseEntity.ok(employeeDto);
 
     }
 }

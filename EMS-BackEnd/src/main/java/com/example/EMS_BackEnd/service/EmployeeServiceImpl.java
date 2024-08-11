@@ -6,6 +6,7 @@ import com.example.EMS_BackEnd.exception.ServiceNotFoundException;
 import com.example.EMS_BackEnd.mapper.EmployeeMapper;
 import com.example.EMS_BackEnd.repository.EmployeeRepo;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,5 +43,20 @@ public class EmployeeServiceImpl implements EmployeeService{
                 .stream()
                 .map((employee) -> EmployeeMapper.mapToEmployeeDto(employee))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public EmployeeDto updateEmployee(Long id, EmployeeDto updatedEmployee) {
+        Employee employee = employeeRepo
+                .findById(id)
+                .orElseThrow(()-> new ServiceNotFoundException("There is no such a Employee"));
+
+        employee.setFirstName(updatedEmployee.getFirstName());
+        employee.setLastName(updatedEmployee.getLastName());
+        employee.setEmail(updatedEmployee.getEmail());
+
+        Employee updatedEmp = employeeRepo.save(employee);
+
+        return EmployeeMapper.mapToEmployeeDto(updatedEmp);
     }
 }
