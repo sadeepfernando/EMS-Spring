@@ -5,7 +5,6 @@ import com.example.EMS_BackEnd.entity.Employee;
 import com.example.EMS_BackEnd.mapper.EmployeeMapper;
 import com.example.EMS_BackEnd.repository.EmployeeRepo;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
