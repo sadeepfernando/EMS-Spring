@@ -8,6 +8,9 @@ import com.example.EMS_BackEnd.repository.EmployeeRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService{
@@ -29,5 +32,15 @@ public class EmployeeServiceImpl implements EmployeeService{
                 .orElseThrow(()-> new ServiceNotFoundException("There is no such a Employee Id"));
 
         return EmployeeMapper.mapToEmployeeDto(employee);
+    }
+
+    @Override
+    public List<EmployeeDto> getAllEmployees() {
+        List<Employee> employees = employeeRepo.findAll();
+
+        return employees
+                .stream()
+                .map((employee) -> EmployeeMapper.mapToEmployeeDto(employee))
+                .collect(Collectors.toList());
     }
 }
