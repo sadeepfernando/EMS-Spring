@@ -8,8 +8,10 @@ import com.example.EMS_BackEnd.repository.EmployeeRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,5 +60,12 @@ public class EmployeeServiceImpl implements EmployeeService{
         Employee updatedEmp = employeeRepo.save(employee);
 
         return EmployeeMapper.mapToEmployeeDto(updatedEmp);
+    }
+
+    @Override
+    public void deleteEmployee(Long id) {
+       Employee employee = employeeRepo.findById(id)
+               .orElseThrow(()-> new ServiceNotFoundException("THere is no such an Employee to delete"));
+       employeeRepo.deleteById(id);
     }
 }

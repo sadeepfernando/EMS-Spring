@@ -41,9 +41,15 @@ public class EmployeeController {
 //    Update Employee Api
     @PutMapping("{id}")
     public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto updatedEmployee){
-
         EmployeeDto employeeDto = employeeService.updateEmployee(id , updatedEmployee);
         return ResponseEntity.ok(employeeDto);
 
+    }
+
+//    Delete Employee Api
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable Long id){
+        employeeService.deleteEmployee(id);
+        return ResponseEntity.ok("Employee with id : "+ id + " is deleted successfully!" );
     }
 }
